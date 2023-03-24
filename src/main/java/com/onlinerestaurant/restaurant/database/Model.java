@@ -24,4 +24,10 @@ abstract public class Model {
         else
             throw new MalformedMapException();
     }
+
+    /**
+     * Validate the input data before insertion
+     * @return true if all data are valid, false otherwise
+     */
+    abstract protected boolean validateData();
 }
