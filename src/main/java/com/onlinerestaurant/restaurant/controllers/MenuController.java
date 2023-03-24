@@ -13,7 +13,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.onlinerestaurant.exceptions.MalformedMapException;
 import com.onlinerestaurant.restaurant.interfaces.Constants;
-import com.onlinerestaurant.restaurant.models.Dish;
+import com.onlinerestaurant.restaurant.response.Dish;
 
 @RestController
 @RequestMapping("/menu")
