@@ -44,6 +44,34 @@ public class Dish extends Model {
     }
 
     @Override
+    public boolean get(String query){
+        this.errno = 0;
+        super.get(query);
+        return true;
+    }
+
+    @Override
+    public boolean insert(Map<String, Object> params){
+        this.errno = 0;
+        super.insert(params);
+        return true;
+    }
+
+    @Override
+    public boolean update(String query){
+        this.errno = 0;
+        super.update(query);
+        return true;
+    }
+
+    @Override
+    public boolean delete(String query){
+        this.errno = 0;
+        super.delete(query);
+        return true;
+    }
+
+    @Override
     protected boolean validateData() {
         // TODO Auto-generated method stub
         return true;
