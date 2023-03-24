@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.onlinerestaurant.exceptions.MalformedMapException;
 import com.onlinerestaurant.restaurant.database.Model;
+import com.onlinerestaurant.restaurant.interfaces.Constants;
 
 public class Dish extends Model {
 
@@ -13,6 +14,10 @@ public class Dish extends Model {
     private String name;
     private List<String> ingredients;
     private float price;
+
+    public static final byte ERR_INVALID_DATA = 1;
+
+    private static final String ERR_INVALID_DATA_MSG = Constants.ERR_INVALID_DATA;
 
     public Dish(Map<String, Object> params) throws MalformedMapException {
         super(params);
@@ -27,6 +32,14 @@ public class Dish extends Model {
     @Override
     public String getError() {
         // TODO Auto-generated method stub
+        switch(this.errno){
+            case ERR_INVALID_DATA:
+                this.error = ERR_INVALID_DATA_MSG;
+                break;
+            default:
+                this.error = null;
+                break;
+        }
         return this.error;
     }
 

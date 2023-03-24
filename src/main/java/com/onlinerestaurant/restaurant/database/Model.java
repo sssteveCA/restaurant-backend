@@ -26,6 +26,42 @@ abstract public class Model {
     }
 
     /**
+     * Delete a specific table record
+     * @param query the condition to search the first record that satisified it
+     * @return
+     */
+    protected boolean delete(String query){
+        return true;
+    }
+
+    /**
+     * Get a specific table record
+     * @param query the condition to search the first record that satisified it
+     * @return
+     */
+    protected boolean get(String query){
+        return true;
+    }
+
+    /**
+     * Insert a new record in the table
+     * @param params
+     * @return
+     */
+    protected boolean insert(Map<String, Object> params){
+        return true;
+    }
+
+    /**
+     * Update a specific table record
+     * @param query the condition to search the first record that satisified it
+     * @return
+     */
+    protected boolean update(String query){
+        return true;
+    }
+
+    /**
      * Validate the input data before insertion
      * @return true if all data are valid, false otherwise
      */
