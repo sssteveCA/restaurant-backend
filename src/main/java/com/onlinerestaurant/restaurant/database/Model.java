@@ -18,7 +18,7 @@ abstract public class Model {
     public byte getErrno(){ return this.errno; }
     abstract public String getError();
 
-    private void setValues(Map<String, Object> params) throws MalformedMapException{
+    protected void setValues(Map<String, Object> params) throws MalformedMapException{
         if(params.containsKey("table_name"))
             this.table_name = (String) params.get("table_name");
         else
