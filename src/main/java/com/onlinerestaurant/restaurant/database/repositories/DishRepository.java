@@ -5,7 +5,6 @@ import org.springframework.stereotype.Repository;
 
 import com.onlinerestaurant.restaurant.database.models.Dish;
 
-@Repository
 public interface DishRepository extends CrudRepository<Dish, Integer> {
     
 }

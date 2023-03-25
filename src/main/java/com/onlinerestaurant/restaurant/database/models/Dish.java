@@ -67,6 +67,10 @@ public class Dish {
     @Column(nullable = false, columnDefinition = "ENUM default 'altro'")
     private Courses course;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, columnDefinition = "ENUM default 'dinner'")
+    private Meals meal;
+
     @Column(nullable = false)
     private float price;
 
