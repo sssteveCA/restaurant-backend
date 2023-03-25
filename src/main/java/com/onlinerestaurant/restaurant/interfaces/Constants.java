@@ -8,6 +8,7 @@ public interface Constants {
     String EMPTY_DISHES = "Nessun piatto da mostrare";
 
     //Errors
+    String ERR_DISH_TYPE_INVALID = "Il tipo di pasto che hai scelto non è valido";
     String ERR_INVALID_DATA = "I dati inseriti non sono validi, riprova";
     String ERR_MENU = "Impossibile mostrare i menu del ristorante. "+ADMIN_CONTACT;
     String ERR_MISSING_DATA = "Inserisci i dati richiesti per continuare";

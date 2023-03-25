@@ -15,6 +15,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.onlinerestaurant.restaurant.database.models.Dish;
 import com.onlinerestaurant.restaurant.database.repositories.DishRepository;
+import com.onlinerestaurant.restaurant.enums.Courses;
+import com.onlinerestaurant.restaurant.enums.Meals;
 import com.onlinerestaurant.restaurant.interfaces.Constants;
 import com.onlinerestaurant.restaurant.response.Message;
 
@@ -45,21 +47,31 @@ public class DishController {
 
     @GetMapping("/{course}")
     public String getDishesByCourse(@PathVariable String course, HttpServletRequest request, HttpServletResponse response) throws JsonProcessingException{
-        Iterable<Dish> dishes = this.dishRepository.findByCourse(course);
-        Iterator<Dish> dishesIterator = dishes.iterator();
-        if(dishesIterator.hasNext())
-            return new ObjectMapper().writeValueAsString(dishes);
-        Message message = new Message(true, true, Constants.EMPTY_DISHES);
+        if(Courses.isInEnum(course)){
+            Iterable<Dish> dishes = this.dishRepository.findByCourse(course);
+            Iterator<Dish> dishesIterator = dishes.iterator();
+            if(dishesIterator.hasNext())
+                return new ObjectMapper().writeValueAsString(dishes);
+            Message message = new Message(true, true, Constants.EMPTY_DISHES);
+            return new ObjectMapper().writeValueAsString(message);
+        }
+        response.setStatus(400);
+        Message message = new Message(false, false, Constants.ERR_DISH_TYPE_INVALID);
         return new ObjectMapper().writeValueAsString(message);
     }
 
     @GetMapping("/{meal}")
     public String getDishesByMeal(@PathVariable String meal, HttpServletRequest request, HttpServletResponse response) throws JsonProcessingException{
-        Iterable<Dish> dishes = this.dishRepository.findByMeal(meal);
-        Iterator<Dish> dishesIterator = dishes.iterator();
-        if(dishesIterator.hasNext())
-            return new ObjectMapper().writeValueAsString(dishes);
-        Message message = new Message(true, true, Constants.EMPTY_DISHES);
+        if(Meals.isInEnum(meal)){
+            Iterable<Dish> dishes = this.dishRepository.findByMeal(meal);
+            Iterator<Dish> dishesIterator = dishes.iterator();
+            if(dishesIterator.hasNext())
+                return new ObjectMapper().writeValueAsString(dishes);
+            Message message = new Message(true, true, Constants.EMPTY_DISHES);
+            return new ObjectMapper().writeValueAsString(message);
+        }
+        response.setStatus(400);
+        Message message = new Message(false, false, Constants.ERR_DISH_TYPE_INVALID);
         return new ObjectMapper().writeValueAsString(message);
     }
 
