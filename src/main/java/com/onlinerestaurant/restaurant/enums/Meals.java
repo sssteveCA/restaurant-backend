@@ -12,4 +12,12 @@ public enum Meals{
 
     @Override
     public String toString(){ return this.meal; }
+
+    public static boolean isInEnum(String value){
+        for(Meals meals : values()){
+            if(meals.toString().equalsIgnoreCase(value))
+                return true;
+        }
+        return false;
+    }
 }
