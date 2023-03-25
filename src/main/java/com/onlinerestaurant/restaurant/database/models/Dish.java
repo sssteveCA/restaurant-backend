@@ -9,6 +9,8 @@ import com.onlinerestaurant.restaurant.interfaces.Constants;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -47,12 +49,16 @@ public class Dish {
     @Column(nullable = false, columnDefinition = "JSON default \"[]\"")
     private List<String> ingredients;
 
+    @Enumerated(EnumType.STRING)
+    private Courses course;
+
     @Column(nullable = false)
     private float price;
 
     public Integer getId() { return id; }
     public String getName() { return name; }
     public List<String> getIngredients() { return ingredients; }
+    public Courses getCourse(){ return this.course; }
     public float getPrice() { return price; }
 
   
