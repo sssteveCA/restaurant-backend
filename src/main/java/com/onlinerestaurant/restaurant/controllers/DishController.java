@@ -39,17 +39,27 @@ public class DishController {
         Iterator<Dish> dishesIterator = dishes.iterator();
         if(dishesIterator.hasNext())
             return new ObjectMapper().writeValueAsString(dishes);
-        Message message = new Message(true, Constants.EMPTY_DISHES);
+        Message message = new Message(true, true, Constants.EMPTY_DISHES);
         return new ObjectMapper().writeValueAsString(message);
     }
 
     @GetMapping("/{course}")
-    public String getDishesByCourse(HttpServletRequest request, HttpServletResponse response, @PathVariable String course) throws JsonProcessingException{
+    public String getDishesByCourse(@PathVariable String course, HttpServletRequest request, HttpServletResponse response) throws JsonProcessingException{
         Iterable<Dish> dishes = this.dishRepository.findByCourse(course);
         Iterator<Dish> dishesIterator = dishes.iterator();
         if(dishesIterator.hasNext())
             return new ObjectMapper().writeValueAsString(dishes);
-        Message message = new Message(true, Constants.EMPTY_DISHES);
+        Message message = new Message(true, true, Constants.EMPTY_DISHES);
+        return new ObjectMapper().writeValueAsString(message);
+    }
+
+    @GetMapping("/{meal}")
+    public String getDishesByMeal(@PathVariable String meal, HttpServletRequest request, HttpServletResponse response) throws JsonProcessingException{
+        Iterable<Dish> dishes = this.dishRepository.findByMeal(meal);
+        Iterator<Dish> dishesIterator = dishes.iterator();
+        if(dishesIterator.hasNext())
+            return new ObjectMapper().writeValueAsString(dishes);
+        Message message = new Message(true, true, Constants.EMPTY_DISHES);
         return new ObjectMapper().writeValueAsString(message);
     }
 

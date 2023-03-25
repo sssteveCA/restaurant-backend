@@ -25,13 +25,13 @@ public class ContactsController {
             boolean emailSet = (contacts.email != null && !contacts.email.equals(""));
             boolean messageSet = (contacts.message != null && !contacts.message.equals(""));
             if(nameSet && emailSet && messageSet){
-                Message message = new Message(true, Constants.OK_SUPPORT);
+                Message message = new Message(true, false, Constants.OK_SUPPORT);
                 return new ObjectMapper().writeValueAsString(message);
             }
             throw new BadRequestException(Constants.ERR_MISSING_DATA);
         } catch (BadRequestException e){
             response.setStatus(400);
-            Message message = new Message(false, e.getMessage());
+            Message message = new Message(false, false, e.getMessage());
             return new ObjectMapper().writeValueAsString(message);
         }
     }
