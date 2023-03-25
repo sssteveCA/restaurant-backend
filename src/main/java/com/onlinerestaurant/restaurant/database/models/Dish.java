@@ -20,6 +20,23 @@ import jakarta.persistence.Table;
 @Table(name = "dishes")
 public class Dish {
 
+    private enum Courses{
+        APPETIZER("Antipasto"),
+        FIRST("Primo"),
+        SECOND("Secondo"),
+        SIDEDISH("Contorno"),
+        DESSERT("Dolce");
+
+        private String course;
+
+        private Courses(String course){
+            this.course = course;
+        }
+
+        @Override
+        public String toString(){return this.course;}
+    }
+
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;
@@ -27,21 +44,16 @@ public class Dish {
     @Column(length = 60, nullable = false)
     private String name;
 
-    @Column(nullable = false, columnDefinition = "JSON default []")
+    @Column(nullable = false, columnDefinition = "JSON default \"[]\"")
     private List<String> ingredients;
 
     @Column(nullable = false)
     private float price;
 
-    @ManyToOne
-    @JoinColumn(name = "restaurant_id")
-    private Restaurant restaurant;
-
     public Integer getId() { return id; }
     public String getName() { return name; }
     public List<String> getIngredients() { return ingredients; }
     public float getPrice() { return price; }
-    public Restaurant getRestaurant() { return restaurant; }
 
   
 
