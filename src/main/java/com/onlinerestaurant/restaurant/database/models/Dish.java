@@ -64,11 +64,11 @@ public class Dish {
     private List<String> ingredients;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false, columnDefinition = "ENUM default 'altro'")
+    @Column(nullable = false, columnDefinition = "ENUM('Antipasto','Primo','Secondo','Controrno','Dolce','Altro') default 'Altro'")
     private Courses course;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false, columnDefinition = "ENUM default 'dinner'")
+    @Column(nullable = false, columnDefinition = "ENUM('Pranzo','Cena') default 'Cena'")
     private Meals meal;
 
     @Column(nullable = false)

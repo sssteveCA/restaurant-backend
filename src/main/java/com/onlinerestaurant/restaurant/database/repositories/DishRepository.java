@@ -7,4 +7,7 @@ import com.onlinerestaurant.restaurant.database.models.Dish;
 
 public interface DishRepository extends CrudRepository<Dish, Integer> {
     
+    Iterable<Dish> findByCourse(String course);
+
+    Iterable<Dish> findByMeal(String meal);
 }
