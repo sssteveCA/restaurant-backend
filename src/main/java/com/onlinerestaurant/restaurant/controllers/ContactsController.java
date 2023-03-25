@@ -11,12 +11,14 @@ import com.onlinerestaurant.exceptions.BadRequestException;
 import com.onlinerestaurant.requests.Contacts;
 import com.onlinerestaurant.restaurant.interfaces.Constants;
 
+import jakarta.servlet.http.HttpServletResponse;
+
 @RestController
 @RequestMapping("/contacts")
 public class ContactsController {
     
     @PostMapping("/support")
-    public String support(@RequestBody Contacts contacts){
+    public String support(@RequestBody Contacts contacts, HttpServletResponse response){
         try {
             boolean nameSet = (contacts.name != null && !contacts.name.equals(""));
             boolean emailSet = (contacts.email != null && !contacts.email.equals(""));
@@ -28,6 +30,10 @@ public class ContactsController {
         } catch (JsonProcessingException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
+            response.setStatus(500);
+            return e.getMessage();
+        } catch (BadRequestException e){
+            response.setStatus(400);
             return e.getMessage();
         }
     }
