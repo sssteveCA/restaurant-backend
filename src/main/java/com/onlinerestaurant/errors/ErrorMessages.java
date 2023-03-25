@@ -5,13 +5,14 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.onlinerestaurant.exceptions.BadRequestException;
 
 /**
  * This class handles the server response error messages  
  */
-@ControllerAdvice
+@RestControllerAdvice
 public class ErrorMessages {
     
     /**
@@ -19,10 +20,10 @@ public class ErrorMessages {
      * @param e an instance of BadRequestException
      * @return the error message
      */
-    @ResponseBody
+    //@ResponseBody
     @ExceptionHandler(BadRequestException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public String badRequest(BadRequestException e){
-        return e.getMessage();
+        return "Ciao";
     }
 }
