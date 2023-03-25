@@ -22,6 +22,20 @@ import jakarta.persistence.Table;
 @Table(name = "dishes")
 public class Dish {
 
+    private enum Meals{
+        LUNCH("Pranzo"),
+        DINNER("Cena");
+
+        private String meal;
+
+        Meals(String meal){
+            this.meal = meal;
+        }
+
+        @Override
+        public String toString(){ return this.meal; }
+    }
+
     private enum Courses{
         APPETIZER("Antipasto"),
         FIRST("Primo"),
@@ -31,7 +45,7 @@ public class Dish {
 
         private String course;
 
-        private Courses(String course){
+        Courses(String course){
             this.course = course;
         }
 
@@ -50,6 +64,7 @@ public class Dish {
     private List<String> ingredients;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false, columnDefinition = "ENUM default 'altro'")
     private Courses course;
 
     @Column(nullable = false)
