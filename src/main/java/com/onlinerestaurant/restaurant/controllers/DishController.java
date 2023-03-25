@@ -5,11 +5,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.onlinerestaurant.restaurant.database.models.Dish;
 import com.onlinerestaurant.restaurant.database.repositories.DishRepository;
 
-@Controller
+@RestController
 @RequestMapping("/dish")
 public class DishController {
     
@@ -21,7 +22,6 @@ public class DishController {
      * @return
      */
     @PostMapping("/all")
-    @ResponseBody
     public Iterable<Dish> getDishes(){
         return this.dishRepository.findAll();
     }
