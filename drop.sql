@@ -1,8 +1,16 @@
 
-    drop table if exists dish;
+    alter table dishes 
+       drop 
+       foreign key FKpslsa9mci7gsfhwukb3mx7s6n;
 
-    drop table if exists dish_seq;
+    drop table if exists dishes;
 
-    drop table if exists restaurant;
+    drop table if exists restaurants;
 
-    drop table if exists restaurant_seq;
+    alter table dishes 
+       drop 
+       foreign key FKpslsa9mci7gsfhwukb3mx7s6n;
+
+    drop table if exists dishes;
+
+    drop table if exists restaurants;

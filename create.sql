@@ -1,32 +1,25 @@
 
-    create table dish (
-       id tinyint not null,
-        ingredients varbinary(255),
-        name varchar(255),
+    create table dishes (
+       id integer not null auto_increment,
+        ingredients JSON default [] not null,
+        name varchar(60) not null,
         price float(23) not null,
-        restaurant_id tinyint not null,
+        restaurant_id integer,
         primary key (id)
     ) engine=InnoDB;
 
-    create table dish_seq (
-       next_val bigint
-    ) engine=InnoDB;
-
-    insert into dish_seq values ( 1 );
-
-    create table restaurant (
-       id tinyint not null,
-        address varchar(255),
-        city varchar(255),
-        name varchar(255),
-        province varchar(255),
-        region varchar(255),
-        state varchar(255),
+    create table restaurants (
+       id integer not null auto_increment,
+        address varchar(100) not null,
+        city varchar(60) not null,
+        name varchar(60) not null,
+        province varchar(60) not null,
+        region varchar(60) not null,
+        state varchar(60) not null,
         primary key (id)
     ) engine=InnoDB;
 
-    create table restaurant_seq (
-       next_val bigint
-    ) engine=InnoDB;
-
-    insert into restaurant_seq values ( 1 );
+    alter table dishes 
+       add constraint FKpslsa9mci7gsfhwukb3mx7s6n 
+       foreign key (restaurant_id) 
+       references restaurants (id);
