@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.onlinerestaurant.restaurant.database.Model;
+import com.onlinerestaurant.restaurant.enums.Courses;
+import com.onlinerestaurant.restaurant.enums.Meals;
 import com.onlinerestaurant.restaurant.exceptions.MalformedMapException;
 import com.onlinerestaurant.restaurant.interfaces.Constants;
 
@@ -21,37 +23,6 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "dishes")
 public class Dish {
-
-    private enum Meals{
-        LUNCH("Pranzo"),
-        DINNER("Cena");
-
-        private String meal;
-
-        Meals(String meal){
-            this.meal = meal;
-        }
-
-        @Override
-        public String toString(){ return this.meal; }
-    }
-
-    private enum Courses{
-        APPETIZER("Antipasto"),
-        FIRST("Primo"),
-        SECOND("Secondo"),
-        SIDEDISH("Contorno"),
-        DESSERT("Dolce");
-
-        private String course;
-
-        Courses(String course){
-            this.course = course;
-        }
-
-        @Override
-        public String toString(){return this.course;}
-    }
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
