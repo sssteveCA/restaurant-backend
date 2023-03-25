@@ -15,12 +15,16 @@ public class ContactsController {
     
     @PostMapping("/support")
     public String support(@RequestBody Contacts contacts){
+        String response = "";
         try {
-            return new ObjectMapper().writeValueAsString(contacts);
+            response = new ObjectMapper().writeValueAsString(contacts);
         } catch (JsonProcessingException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-            return "Errore";
+            response = e.getMessage();
+        } catch(Exception e){
+            response = e.getMessage();
         }
+        return response;
     }
 }
