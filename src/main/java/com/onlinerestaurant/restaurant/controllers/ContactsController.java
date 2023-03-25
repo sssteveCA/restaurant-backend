@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.onlinerestaurant.exceptions.BadRequestException;
 import com.onlinerestaurant.requests.Contacts;
 import com.onlinerestaurant.restaurant.interfaces.Constants;
+import com.onlinerestaurant.restaurant.response.Message;
 
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -18,23 +19,20 @@ import jakarta.servlet.http.HttpServletResponse;
 public class ContactsController {
     
     @PostMapping("/support")
-    public String support(@RequestBody Contacts contacts, HttpServletResponse response){
+    public String support(@RequestBody Contacts contacts, HttpServletResponse response) throws JsonProcessingException{
         try {
             boolean nameSet = (contacts.name != null && !contacts.name.equals(""));
             boolean emailSet = (contacts.email != null && !contacts.email.equals(""));
             boolean messageSet = (contacts.message != null && !contacts.message.equals(""));
             if(nameSet && emailSet && messageSet){
-                return new ObjectMapper().writeValueAsString(contacts);
+                Message message = new Message(true, Constants.OK_SUPPORT);
+                return new ObjectMapper().writeValueAsString(message);
             }
             throw new BadRequestException(Constants.ERR_MISSING_DATA);
-        } catch (JsonProcessingException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-            response.setStatus(500);
-            return e.getMessage();
         } catch (BadRequestException e){
             response.setStatus(400);
-            return e.getMessage();
+            Message message = new Message(false, e.getMessage());
+            return new ObjectMapper().writeValueAsString(message);
         }
     }
 }

@@ -9,5 +9,10 @@ public class Message {
 
     @JsonProperty("message")
     public String message;
+
+    public Message(boolean done, String message){
+        this.done = done;
+        this.message = message;
+    }
     
 }

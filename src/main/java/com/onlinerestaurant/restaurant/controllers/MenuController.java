@@ -14,6 +14,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.onlinerestaurant.exceptions.MalformedMapException;
 import com.onlinerestaurant.restaurant.interfaces.Constants;
 import com.onlinerestaurant.restaurant.response.Dish;
+import com.onlinerestaurant.restaurant.response.Message;
 
 @RestController
 @RequestMapping("/menu")
@@ -21,7 +22,6 @@ public class MenuController {
     
     @GetMapping("/first")
     public String menuFirst(){
-        String response = "";
         Map<String, Object> params = Stream.of(new Object[][]{
             {"restaurant_id", (byte)1},
             {"name", "Don Gennaro"},
@@ -30,16 +30,15 @@ public class MenuController {
         }).collect(Collectors.toMap(data -> (String)data[0], data -> (Object) data[1]));
         try {
             Dish dish = new Dish(params);
-            response = new ObjectMapper().writeValueAsString(dish);
+            return new ObjectMapper().writeValueAsString(dish);
         } catch (MalformedMapException e) {
             // TODO Auto-generated catch block
-            response = Constants.ERR_MENU;
             e.printStackTrace();
+            return Constants.ERR_MENU;   
         } catch (JsonProcessingException e) {
             // TODO Auto-generated catch block
-            response = Constants.ERR_MENU;
             e.printStackTrace();
+            return Constants.ERR_MENU;
         }
-        return response;
     }
 }

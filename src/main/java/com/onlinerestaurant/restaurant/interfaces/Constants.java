@@ -12,4 +12,7 @@ public interface Constants {
     //Keys
     String KEY_DONE = "done";
     String KEY_MESSAGE = "message";
+
+    //Success
+    String OK_SUPPORT = "Il tuo messaggio è stato inviato. Risponderemo il prima possibile.";
 }
