@@ -1,4 +1,4 @@
-package com.onlinerestaurant.requests;
+package com.onlinerestaurant.restaurant.requests;
 
 public class Contacts {
     public String name;

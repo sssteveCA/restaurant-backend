@@ -1,4 +1,4 @@
-package com.onlinerestaurant.exceptions;
+package com.onlinerestaurant.restaurant.exceptions;
 
 /**
  * Thrown when a Map doesn't contain all the required values

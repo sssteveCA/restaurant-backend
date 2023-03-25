@@ -3,8 +3,8 @@ package com.onlinerestaurant.restaurant.database.models;
 import java.util.List;
 import java.util.Map;
 
-import com.onlinerestaurant.exceptions.MalformedMapException;
 import com.onlinerestaurant.restaurant.database.Model;
+import com.onlinerestaurant.restaurant.exceptions.MalformedMapException;
 import com.onlinerestaurant.restaurant.interfaces.Constants;
 
 import jakarta.persistence.Entity;

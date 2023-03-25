@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.onlinerestaurant.exceptions.MalformedMapException;
+import com.onlinerestaurant.restaurant.exceptions.MalformedMapException;
 
 public class Dish {
 

@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.onlinerestaurant.exceptions.BadRequestException;
-import com.onlinerestaurant.requests.Contacts;
+import com.onlinerestaurant.restaurant.exceptions.BadRequestException;
 import com.onlinerestaurant.restaurant.interfaces.Constants;
+import com.onlinerestaurant.restaurant.requests.Contacts;
 import com.onlinerestaurant.restaurant.response.Message;
 
 import jakarta.servlet.http.HttpServletResponse;

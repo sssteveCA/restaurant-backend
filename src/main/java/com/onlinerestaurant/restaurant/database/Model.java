@@ -2,7 +2,7 @@ package com.onlinerestaurant.restaurant.database;
 
 import java.util.Map;
 
-import com.onlinerestaurant.exceptions.MalformedMapException;
+import com.onlinerestaurant.restaurant.exceptions.MalformedMapException;
 
 abstract public class Model {
     

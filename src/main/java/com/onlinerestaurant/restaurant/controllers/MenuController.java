@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.onlinerestaurant.exceptions.MalformedMapException;
+import com.onlinerestaurant.restaurant.exceptions.MalformedMapException;
 import com.onlinerestaurant.restaurant.interfaces.Constants;
 import com.onlinerestaurant.restaurant.response.Dish;
 import com.onlinerestaurant.restaurant.response.Message;
