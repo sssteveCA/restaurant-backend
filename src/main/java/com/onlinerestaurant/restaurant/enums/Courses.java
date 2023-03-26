@@ -1,5 +1,9 @@
 package com.onlinerestaurant.restaurant.enums;
 
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.stream.Stream;
+
 public enum Courses{
     APPETIZER("Antipasto"),
     FIRST("Primo"),
@@ -22,5 +26,9 @@ public enum Courses{
                 return true;
         }
         return false;
+    }
+
+    public static Stream<Courses> stream(){
+        return Stream.of(Courses.values());
     }
 }

@@ -1,6 +1,8 @@
 package com.onlinerestaurant.restaurant.controllers;
 
+import java.util.Arrays;
 import java.util.Iterator;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -45,7 +47,7 @@ public class DishController {
         return new ObjectMapper().writeValueAsString(message);
     }
 
-    @GetMapping("/{course}")
+    @GetMapping("/courses/{course}")
     public String getDishesByCourse(@PathVariable String course, HttpServletRequest request, HttpServletResponse response) throws JsonProcessingException{
         if(Courses.isInEnum(course)){
             Iterable<Dish> dishes = this.dishRepository.findByCourse(course);
@@ -60,7 +62,10 @@ public class DishController {
         return new ObjectMapper().writeValueAsString(message);
     }
 
-    @GetMapping("/{meal}")
+    private void extracted() {
+    }
+
+    @GetMapping("/meals/{meal}")
     public String getDishesByMeal(@PathVariable String meal, HttpServletRequest request, HttpServletResponse response) throws JsonProcessingException{
         if(Meals.isInEnum(meal)){
             Iterable<Dish> dishes = this.dishRepository.findByMeal(meal);

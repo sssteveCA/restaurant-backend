@@ -34,13 +34,11 @@ public class Dish {
     @Column(nullable = false, columnDefinition = "JSON default \"[]\"")
     private List<String> ingredients;
 
-    @Enumerated(EnumType.STRING)
     @Column(nullable = false, columnDefinition = "ENUM('Antipasto','Primo','Secondo','Controrno','Dolce','Altro') default 'Altro'")
-    private Courses course;
+    private String course;
 
-    @Enumerated(EnumType.STRING)
     @Column(nullable = false, columnDefinition = "ENUM('Pranzo','Cena') default 'Cena'")
-    private Meals meal;
+    private String meal;
 
     @Column(nullable = false)
     private float price;
@@ -48,7 +46,8 @@ public class Dish {
     public Integer getId() { return id; }
     public String getName() { return name; }
     public List<String> getIngredients() { return ingredients; }
-    public Courses getCourse(){ return this.course; }
+    public String getCourse(){ return this.course; }
+    public String getMeal(){ return this.meal; }
     public float getPrice() { return price; }
 
   
