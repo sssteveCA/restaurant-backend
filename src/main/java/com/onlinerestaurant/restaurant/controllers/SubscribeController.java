@@ -2,6 +2,7 @@ package com.onlinerestaurant.restaurant.controllers;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,23 +39,29 @@ public class SubscribeController {
             boolean confPasswordSet = (subscribe.confPassword != null && !subscribe.confPassword.equals(""));
             if(firstNameSet && lastNameSet && emailSet && passwordSet && confPasswordSet){
                 if(subscribe.password.equals(subscribe.confPassword)){
-                    User user = new User();
-                    user.setFirstName(subscribe.firstName);
-                    user.setLastName(subscribe.lastName);
-                    user.setEmail(subscribe.email);
-                    userRepository.save(user);
-                    on.put(Constants.KEY_DONE, true);
-                    on.put(Constants.KEY_MESSAGE, Constants.OK_REGISTRATION);
-                    return om.writerWithDefaultPrettyPrinter().writeValueAsString(on);
+                    Optional<User> checkUser = this.userRepository.findByEmail(subscribe.email);
+                    if(checkUser.isEmpty()){
+                        User user = new User();
+                        user.setFirstName(subscribe.firstName);
+                        user.setLastName(subscribe.lastName);
+                        user.setEmail(subscribe.email);
+                        userRepository.save(user);
+                        on.put(Constants.KEY_DONE, true);
+                        on.put(Constants.KEY_MESSAGE, Constants.OK_REGISTRATION);
+                        return om.writerWithDefaultPrettyPrinter().writeValueAsString(on);
+                    }//if(checkUser.isEmpty()){
+                    throw new BadRequestException(Constants.ERR_EMAIL_EXISTS);
                 }//if(subscribe.password.equals(subscribe.confPassword)){
                 throw new BadRequestException(Constants.ERR_PASSWORD_MISMATCH);
             }//if(firstNameSet && lastNameSet && emailSet && passwordSet && confPasswordSet){
             throw new BadRequestException(Constants.ERR_MISSING_DATA);
         }catch(BadRequestException e){
+            response.setStatus(400);
             on.put(Constants.KEY_DONE, false);
             on.put(Constants.KEY_MESSAGE, e.getMessage());
             return om.writerWithDefaultPrettyPrinter().writeValueAsString(on);
         }catch(Exception e){
+            response.setStatus(500);
             on.put(Constants.KEY_DONE, false);
             on.put(Constants.KEY_MESSAGE, Constants.ERR_REQUEST);
             return om.writerWithDefaultPrettyPrinter().writeValueAsString(on);
