@@ -42,16 +42,26 @@ public class DishController {
     public String getDishes(HttpServletRequest request, HttpServletResponse response) throws JsonProcessingException{
         ObjectMapper om = new ObjectMapper();
         ObjectNode on = om.createObjectNode();
-        Iterable<Dish> dishes = this.dishRepository.findAll();
-        Iterator<Dish> dishesIterator = dishes.iterator();
-        if(dishesIterator.hasNext()){
+        try{
+            Iterable<Dish> dishes = this.dishRepository.findAll();
+            Iterator<Dish> dishesIterator = dishes.iterator();
+            if(dishesIterator.hasNext()){
+                on.put(Constants.KEY_DONE, true);
+                on.put(Constants.KEY_EMPTY, false);
+                on.putPOJO("dishes", dishes);
+                return om.writerWithDefaultPrettyPrinter().writeValueAsString(on);  
+            }
             on.put(Constants.KEY_DONE, true);
-            on.putPOJO("dishes", dishes);
+            on.put(Constants.KEY_EMPTY, true);
+            on.put(Constants.KEY_MESSAGE,Constants.EMPTY_DISHES);
+            return om.writerWithDefaultPrettyPrinter().writeValueAsString(on);
+        }catch(Exception e){
+            response.setStatus(500);
+            on.put(Constants.KEY_DONE, false);
+            on.put(Constants.KEY_EMPTY,false);
+            on.put(Constants.KEY_MESSAGE,Constants.ERR_REQUEST);
             return om.writerWithDefaultPrettyPrinter().writeValueAsString(on);
         }
-        on.put(Constants.KEY_DONE, false);
-        on.put(Constants.KEY_MESSAGE,Constants.EMPTY_DISHES);
-        return om.writerWithDefaultPrettyPrinter().writeValueAsString(on);
     }
 
     @GetMapping("/meals/{meal}")
@@ -79,10 +89,10 @@ public class DishController {
             on.put(Constants.KEY_MESSAGE,Constants.ERR_DISH_TYPE_INVALID);
             return om.writerWithDefaultPrettyPrinter().writeValueAsString(on);
         }catch(Exception e){
-            response.setStatus(400);
+            response.setStatus(500);
             on.put(Constants.KEY_DONE, false);
             on.put(Constants.KEY_EMPTY,false);
-            on.put(Constants.KEY_MESSAGE,Constants.ERR_DISH_TYPE_INVALID);
+            on.put(Constants.KEY_MESSAGE,Constants.ERR_REQUEST);
             return om.writerWithDefaultPrettyPrinter().writeValueAsString(on);
         }
     }
