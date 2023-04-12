@@ -67,7 +67,7 @@ public class SubscribeController {
         }catch(Exception e){
             response.setStatus(500);
             on.put(Constants.KEY_DONE, false);
-            on.put(Constants.KEY_MESSAGE, Constants.ERR_REQUEST);
+            on.put(Constants.KEY_MESSAGE, e.getMessage());
             return om.writerWithDefaultPrettyPrinter().writeValueAsString(on);
         }
     }

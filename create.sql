@@ -18,12 +18,12 @@
 
     create table users (
        id bigint not null auto_increment,
-        created_at DATETIME DEFAULT CURRENT_TIMESTAMP not null,
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
         email varchar(50) not null,
         first_name varchar(50) not null,
         last_name varchar(50) not null,
         password varchar(64) not null,
-        updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP not null,
+        updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
         verified_at DATETIME,
         verify_code varchar(64),
         primary key (id)
