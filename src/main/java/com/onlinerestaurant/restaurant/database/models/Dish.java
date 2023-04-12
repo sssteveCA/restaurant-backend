@@ -50,7 +50,6 @@ public class Dish {
     public String getMeal(){ return this.meal; }
     public float getPrice() { return price; }
 
-    public void setId(Integer id) { this.id = id; }
     public void setName(String name) { this.name = name; }
     public void setIngredients(String ingredients) { this.ingredients = ingredients; }
     public void setCourse(String course) { this.course = course; }

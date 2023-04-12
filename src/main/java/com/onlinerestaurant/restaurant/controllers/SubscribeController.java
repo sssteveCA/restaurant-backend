@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -41,10 +42,13 @@ public class SubscribeController {
                 if(subscribe.password.equals(subscribe.confPassword)){
                     Optional<User> checkUser = this.userRepository.findByEmail(subscribe.email);
                     if(checkUser.isEmpty()){
+                        BCryptPasswordEncoder bpe = new BCryptPasswordEncoder();
+                        String passwordHash = bpe.encode(subscribe.password);
                         User user = new User();
                         user.setFirstName(subscribe.firstName);
                         user.setLastName(subscribe.lastName);
                         user.setEmail(subscribe.email);
+                        user.setPassword(passwordHash);
                         userRepository.save(user);
                         on.put(Constants.KEY_DONE, true);
                         on.put(Constants.KEY_MESSAGE, Constants.OK_REGISTRATION);

@@ -45,13 +45,10 @@ public class User {
     public String getUpdatedAt() { return updatedAt; }
     public String getCreatedAt() { return createdAt; }
 
-    public void setId(Long id) { this.id = id; }
     public void setFirstName(String firstName) { this.firstName = firstName; }
     public void setLastName(String lastName) { this.lastName = lastName; }
     public void setEmail(String email) { this.email = email; }
     public void setPassword(String password) { this.password = password; }
     public void setVerifiedAt(String verifiedAt) { this.verifiedAt = verifiedAt; }
-    public void setUpdatedAt(String updatedAt) { this.updatedAt = updatedAt; }
-    public void setCreatedAt(String createdAt) { this.createdAt = createdAt; }
     
 }
