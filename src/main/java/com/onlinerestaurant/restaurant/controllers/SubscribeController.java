@@ -1,5 +1,8 @@
 package com.onlinerestaurant.restaurant.controllers;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -36,6 +39,9 @@ public class SubscribeController {
             if(firstNameSet && lastNameSet && emailSet && passwordSet && confPasswordSet){
                 if(subscribe.password.equals(subscribe.confPassword)){
                     User user = new User();
+                    user.setFirstName(subscribe.firstName);
+                    user.setLastName(subscribe.lastName);
+                    user.setEmail(subscribe.email);
                     userRepository.save(user);
                     on.put(Constants.KEY_DONE, true);
                     on.put(Constants.KEY_MESSAGE, Constants.OK_REGISTRATION);
