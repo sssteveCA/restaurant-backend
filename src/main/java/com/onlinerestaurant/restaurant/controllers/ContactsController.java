@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.onlinerestaurant.restaurant.exceptions.BadRequestException;
 import com.onlinerestaurant.restaurant.interfaces.Constants;
 import com.onlinerestaurant.restaurant.requests.Contacts;
@@ -20,19 +21,28 @@ public class ContactsController {
     
     @PostMapping("/support")
     public String support(@RequestBody Contacts contacts, HttpServletResponse response) throws JsonProcessingException{
+        ObjectMapper om = new ObjectMapper();
+        ObjectNode on = om.createObjectNode();
         try {
             boolean nameSet = (contacts.name != null && !contacts.name.equals(""));
             boolean emailSet = (contacts.email != null && !contacts.email.equals(""));
             boolean messageSet = (contacts.message != null && !contacts.message.equals(""));
             if(nameSet && emailSet && messageSet){
-                Message message = new Message(true, false, Constants.OK_SUPPORT);
-                return new ObjectMapper().writeValueAsString(message);
+                on.put(Constants.KEY_DONE,true);
+                on.put(Constants.KEY_MESSAGE,Constants.OK_SUPPORT);
+                return om.writerWithDefaultPrettyPrinter().writeValueAsString(on);
             }
             throw new BadRequestException(Constants.ERR_MISSING_DATA);
         } catch (BadRequestException e){
             response.setStatus(400);
-            Message message = new Message(false, false, e.getMessage());
-            return new ObjectMapper().writeValueAsString(message);
+            on.put(Constants.KEY_DONE,false);
+            on.put(Constants.KEY_MESSAGE,Constants.ERR_MISSING_DATA);
+            return om.writerWithDefaultPrettyPrinter().writeValueAsString(on);
+        } catch (Exception e){
+            response.setStatus(500);
+            on.put(Constants.KEY_DONE,false);
+            on.put(Constants.KEY_MESSAGE,Constants.ERR_REQUEST);
+            return om.writerWithDefaultPrettyPrinter().writeValueAsString(on);
         }
     }
 }
