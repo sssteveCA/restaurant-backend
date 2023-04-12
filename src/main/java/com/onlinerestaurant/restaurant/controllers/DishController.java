@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.onlinerestaurant.restaurant.database.models.Dish;
 import com.onlinerestaurant.restaurant.database.repositories.DishRepository;
 import com.onlinerestaurant.restaurant.enums.Courses;
@@ -39,12 +40,18 @@ public class DishController {
      */
     @GetMapping("/all")
     public String getDishes(HttpServletRequest request, HttpServletResponse response) throws JsonProcessingException{
+        ObjectMapper om = new ObjectMapper();
+        ObjectNode on = om.createObjectNode();
         Iterable<Dish> dishes = this.dishRepository.findAll();
         Iterator<Dish> dishesIterator = dishes.iterator();
-        if(dishesIterator.hasNext())
-            return new ObjectMapper().writeValueAsString(dishes);
-        Message message = new Message(true, true, Constants.EMPTY_DISHES);
-        return new ObjectMapper().writeValueAsString(message);
+        if(dishesIterator.hasNext()){
+            on.put(Constants.KEY_DONE, true);
+            on.putPOJO("dishes", dishes);
+            return om.writerWithDefaultPrettyPrinter().writeValueAsString(on);
+        }
+        on.put(Constants.KEY_DONE, false);
+        on.put(Constants.KEY_MESSAGE,Constants.EMPTY_DISHES);
+        return om.writerWithDefaultPrettyPrinter().writeValueAsString(on);
     }
 
     @GetMapping("/courses/{course}")

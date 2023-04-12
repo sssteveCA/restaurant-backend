@@ -32,7 +32,7 @@ public class Dish {
     private String name;
 
     @Column(nullable = false, columnDefinition = "JSON default \"[]\"")
-    private List<String> ingredients;
+    private String ingredients;
 
     @Column(nullable = false, columnDefinition = "ENUM('Antipasto','Primo','Secondo','Controrno','Dolce','Altro') default 'Altro'")
     private String course;
@@ -45,7 +45,7 @@ public class Dish {
 
     public Integer getId() { return id; }
     public String getName() { return name; }
-    public List<String> getIngredients() { return ingredients; }
+    public String getIngredients() { return ingredients; }
     public String getCourse(){ return this.course; }
     public String getMeal(){ return this.meal; }
     public float getPrice() { return price; }
