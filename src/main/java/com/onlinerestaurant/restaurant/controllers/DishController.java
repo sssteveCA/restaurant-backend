@@ -54,39 +54,37 @@ public class DishController {
         return om.writerWithDefaultPrettyPrinter().writeValueAsString(on);
     }
 
-    @GetMapping("/courses/{course}")
-    public String getDishesByCourse(@PathVariable String course, HttpServletRequest request, HttpServletResponse response) throws JsonProcessingException{
-        if(Courses.isInEnum(course)){
-            Iterable<Dish> dishes = this.dishRepository.findByCourse(course);
-            Iterator<Dish> dishesIterator = dishes.iterator();
-            if(dishesIterator.hasNext())
-                return new ObjectMapper().writeValueAsString(dishes);
-            Message message = new Message(true, true, Constants.EMPTY_DISHES);
-            return new ObjectMapper().writeValueAsString(message);
-        }
-        response.setStatus(400);
-        Message message = new Message(false, false, Constants.ERR_DISH_TYPE_INVALID);
-        return new ObjectMapper().writeValueAsString(message);
-    }
-
-    private void extracted() {
-    }
-
     @GetMapping("/meals/{meal}")
     public String getDishesByMeal(@PathVariable String meal, HttpServletRequest request, HttpServletResponse response) throws JsonProcessingException{
-        if(Meals.isInEnum(meal)){
-            Iterable<Dish> dishes = this.dishRepository.findByMeal(meal);
-            Iterator<Dish> dishesIterator = dishes.iterator();
-            if(dishesIterator.hasNext())
-                return new ObjectMapper().writeValueAsString(dishes);
-            Message message = new Message(true, true, Constants.EMPTY_DISHES);
-            return new ObjectMapper().writeValueAsString(message);
+        ObjectMapper om = new ObjectMapper();
+        ObjectNode on = om.createObjectNode();
+        try{
+            if(Meals.isInEnum(meal)){
+                Iterable<Dish> dishes = this.dishRepository.findByMeal(meal);
+                Iterator<Dish> dishesIterator = dishes.iterator();
+                if(dishesIterator.hasNext()){
+                    on.put(Constants.KEY_DONE, true);
+                    on.put(Constants.KEY_EMPTY, false);
+                    on.putPOJO("dishes", dishes);
+                    return om.writerWithDefaultPrettyPrinter().writeValueAsString(on);
+                }
+                on.put(Constants.KEY_DONE, true);
+                on.put(Constants.KEY_EMPTY, false);
+                on.put(Constants.KEY_MESSAGE, Constants.EMPTY_DISHES);
+                return om.writerWithDefaultPrettyPrinter().writeValueAsString(on);
+            }
+            response.setStatus(400);
+            on.put(Constants.KEY_DONE, false);
+            on.put(Constants.KEY_EMPTY,false);
+            on.put(Constants.KEY_MESSAGE,Constants.ERR_DISH_TYPE_INVALID);
+            return om.writerWithDefaultPrettyPrinter().writeValueAsString(on);
+        }catch(Exception e){
+            response.setStatus(400);
+            on.put(Constants.KEY_DONE, false);
+            on.put(Constants.KEY_EMPTY,false);
+            on.put(Constants.KEY_MESSAGE,Constants.ERR_DISH_TYPE_INVALID);
+            return om.writerWithDefaultPrettyPrinter().writeValueAsString(on);
         }
-        response.setStatus(400);
-        Message message = new Message(false, false, Constants.ERR_DISH_TYPE_INVALID);
-        return new ObjectMapper().writeValueAsString(message);
     }
-
-
 
 }
