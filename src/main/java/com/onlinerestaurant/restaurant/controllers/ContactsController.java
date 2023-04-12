@@ -32,11 +32,12 @@ public class ContactsController {
             boolean nameSet = (contacts.name != null && !contacts.name.equals(""));
             boolean emailSet = (contacts.email != null && !contacts.email.equals(""));
             boolean messageSet = (contacts.message != null && !contacts.message.equals(""));
-            if(nameSet && emailSet && messageSet){
+            boolean subjectSet = (contacts.subject != null && !contacts.subject.equals(""));
+            if(nameSet && emailSet && messageSet && subjectSet){
                 Map<String, String> data = Map.ofEntries(
-                    new AbstractMap.SimpleImmutableEntry<>("from","admin@onlinerestaurant.com"),
-                    new AbstractMap.SimpleImmutableEntry<>("to",contacts.email),
-                    new AbstractMap.SimpleImmutableEntry<>("subject","Richiesta informazioni"),
+                    new AbstractMap.SimpleImmutableEntry<>("from",contacts.email),
+                    new AbstractMap.SimpleImmutableEntry<>("to","steppuggio@gmail.com"),
+                    new AbstractMap.SimpleImmutableEntry<>("subject",contacts.subject),
                     new AbstractMap.SimpleImmutableEntry<>("text",contacts.message)
                 );
                 TextMail tm = new TextMail(data);
@@ -53,7 +54,8 @@ public class ContactsController {
         } catch (Exception e){
             response.setStatus(500);
             on.put(Constants.KEY_DONE,false);
-            on.put(Constants.KEY_MESSAGE,Constants.ERR_REQUEST);
+            //on.put(Constants.KEY_MESSAGE,Constants.ERR_REQUEST);
+            on.put(Constants.KEY_MESSAGE,e.getMessage());
             return om.writerWithDefaultPrettyPrinter().writeValueAsString(on);
         }
     }

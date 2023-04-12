@@ -5,15 +5,13 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.stereotype.Component;
 
+import com.onlinerestaurant.restaurant.beans.MailConfiguration;
 import com.onlinerestaurant.restaurant.exceptions.MalformedMapException;
 
-@Component
 public class TextMail{
 
-    @Autowired
-    private JavaMailSender jms;
+    private MailConfiguration mc;
     
     private String from;
     
@@ -44,12 +42,14 @@ public class TextMail{
     }
 
     private void sendMail(){
+        this.mc = new MailConfiguration();
+        JavaMailSender jms = this.mc.getMailConf();
         SimpleMailMessage smm = new SimpleMailMessage();
         smm.setFrom(this.from);
         smm.setTo(this.to);
         smm.setSubject(this.subject);
         smm.setText(this.text);
-        this.jms.send(smm);
+        jms.send(smm);
     }
 
 
