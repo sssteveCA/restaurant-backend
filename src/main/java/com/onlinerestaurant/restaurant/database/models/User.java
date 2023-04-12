@@ -15,10 +15,10 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 50)
     private String firstName;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 50)
     private String lastName;
 
     @Column(nullable = false, unique = true, length = 50)
@@ -27,7 +27,7 @@ public class User {
     @Column(nullable = false, length = 64)
     private String password;
 
-    @Column(nullable = true, name = "verified_at")
+    @Column(nullable = true, name = "verified_at", columnDefinition = "DATETIME")
     private String verifiedAt;
 
     @Column(name = "created_at", nullable = false, columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP")
