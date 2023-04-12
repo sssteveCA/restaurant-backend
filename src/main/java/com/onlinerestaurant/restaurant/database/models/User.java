@@ -15,10 +15,10 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false, length = 50, name = "first_name")
     private String firstName;
 
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false, length = 50, name = "last_name")
     private String lastName;
 
     @Column(nullable = false, unique = true, length = 50)
@@ -26,6 +26,9 @@ public class User {
 
     @Column(nullable = false, length = 64)
     private String password;
+
+    @Column(nullable = true, length = 64, name = "verify_code")
+    private String verifyCode;
 
     @Column(nullable = true, name = "verified_at", columnDefinition = "DATETIME")
     private String verifiedAt;
@@ -41,6 +44,7 @@ public class User {
     public String getLastName() { return lastName; }
     public String getEmail() { return email; }
     public String getPassword() { return password; }
+    public String getVerifyCode() { return verifyCode; }
     public String getVerifiedAt() { return verifiedAt; }
     public String getUpdatedAt() { return updatedAt; }
     public String getCreatedAt() { return createdAt; }

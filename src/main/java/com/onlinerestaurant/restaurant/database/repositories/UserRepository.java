@@ -9,4 +9,6 @@ import com.onlinerestaurant.restaurant.database.models.User;
 public interface UserRepository extends CrudRepository<User,Long> {
     
     public Optional<User> findByEmail(String email);
+
+    public Optional<User> findByVerifyCode(String verifyCode);
 }
