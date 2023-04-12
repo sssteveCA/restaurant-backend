@@ -23,4 +23,8 @@ public class Table {
     public Integer getId() { return id; }
     public byte getNum() { return num; }
     public byte getSeats() { return seats; }
+
+    public void setId(Integer id) { this.id = id; }
+    public void setNum(byte num) { this.num = num; }
+    public void setSeats(byte seats) { this.seats = seats; }
 }

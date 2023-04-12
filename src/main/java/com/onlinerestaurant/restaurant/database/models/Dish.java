@@ -36,7 +36,7 @@ public class Dish {
 
     @Column(nullable = false, columnDefinition = "ENUM('Antipasto','Primo','Secondo','Controrno','Dolce','Altro') default 'Altro'")
     private String course;
-
+    
     @Column(nullable = false, columnDefinition = "ENUM('Pranzo','Cena') default 'Cena'")
     private String meal;
 
@@ -50,6 +50,11 @@ public class Dish {
     public String getMeal(){ return this.meal; }
     public float getPrice() { return price; }
 
-  
+    public void setId(Integer id) { this.id = id; }
+    public void setName(String name) { this.name = name; }
+    public void setIngredients(String ingredients) { this.ingredients = ingredients; }
+    public void setCourse(String course) { this.course = course; }
+    public void setMeal(String meal) { this.meal = meal; }
+    public void setPrice(float price) { this.price = price; }
 
 }
