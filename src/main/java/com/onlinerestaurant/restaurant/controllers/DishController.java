@@ -20,6 +20,7 @@ import com.onlinerestaurant.restaurant.database.models.Dish;
 import com.onlinerestaurant.restaurant.database.repositories.DishRepository;
 import com.onlinerestaurant.restaurant.enums.Courses;
 import com.onlinerestaurant.restaurant.enums.Meals;
+import com.onlinerestaurant.restaurant.exceptions.BadRequestException;
 import com.onlinerestaurant.restaurant.interfaces.Constants;
 import com.onlinerestaurant.restaurant.response.Message;
 
@@ -83,10 +84,12 @@ public class DishController {
                 on.put(Constants.KEY_MESSAGE, Constants.EMPTY_DISHES);
                 return om.writerWithDefaultPrettyPrinter().writeValueAsString(on);
             }
+            throw new BadRequestException(Constants.ERR_DISH_TYPE_INVALID);
+        }catch(BadRequestException e){
             response.setStatus(400);
             on.put(Constants.KEY_DONE, false);
             on.put(Constants.KEY_EMPTY,false);
-            on.put(Constants.KEY_MESSAGE,Constants.ERR_DISH_TYPE_INVALID);
+            on.put(Constants.KEY_MESSAGE,e.getMessage());
             return om.writerWithDefaultPrettyPrinter().writeValueAsString(on);
         }catch(Exception e){
             response.setStatus(500);
