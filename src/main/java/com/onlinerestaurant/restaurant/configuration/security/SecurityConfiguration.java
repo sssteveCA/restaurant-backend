@@ -1,5 +1,7 @@
 package com.onlinerestaurant.restaurant.configuration.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -7,6 +9,7 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
@@ -15,6 +18,10 @@ public class SecurityConfiguration {
     
     /* @Value("${api.endpoint.base-url}")
     private String baseUrl; */
+
+    @Autowired
+    @Qualifier("customAuthenticationEntryPoint")
+    private AuthenticationEntryPoint authenticationEntryPoint;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
@@ -30,7 +37,7 @@ public class SecurityConfiguration {
             )
         .headers(headers -> headers.frameOptions().disable())
         .csrf(csrf -> csrf.disable())
-        .exceptionHandling().disable()
+        .exceptionHandling(exception -> exception.authenticationEntryPoint(authenticationEntryPoint))
         .httpBasic(Customizer.withDefaults())
         .build();
     }
