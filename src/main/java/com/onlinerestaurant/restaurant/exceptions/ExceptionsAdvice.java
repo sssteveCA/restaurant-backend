@@ -12,12 +12,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.onlinerestaurant.restaurant.interfaces.Constants;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
 @RestControllerAdvice
 public class ExceptionsAdvice{
 
     @ExceptionHandler({UsernameNotFoundException.class, BadCredentialsException.class})
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
-    public String handleAuthenticationException(Exception ex) throws JsonProcessingException{
+    public String handleAuthenticationException(HttpServletRequest request, HttpServletResponse response) throws JsonProcessingException{
         ObjectMapper om = new ObjectMapper();
         ObjectNode on = om.createObjectNode();
         on.put(Constants.KEY_DONE, false);

@@ -1,6 +1,5 @@
 package com.onlinerestaurant.restaurant.configuration.security;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -25,11 +24,13 @@ public class SecurityConfiguration {
             .requestMatchers(HttpMethod.GET,"/contacts/**").permitAll()
             .requestMatchers(HttpMethod.POST,"/login").permitAll()
             .requestMatchers(HttpMethod.POST, "/register").permitAll()
+            .requestMatchers(HttpMethod.GET, "/profile**").hasAuthority("ROLE_user")
             .requestMatchers(AntPathRequestMatcher.antMatcher("/h2-console/**")).permitAll()
             .anyRequest().authenticated()
             )
         .headers(headers -> headers.frameOptions().disable())
         .csrf(csrf -> csrf.disable())
+        .exceptionHandling().disable()
         .httpBasic(Customizer.withDefaults())
         .build();
     }
