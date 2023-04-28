@@ -32,8 +32,8 @@ public class User {
     private String password;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "role", nullable = false, columnDefinition = "ENUM('user','admin') DEFAULT 'user'") 
-    private UserRoles roles;
+    @Column(name = "role", columnDefinition = "ENUM('user','admin') DEFAULT 'user'") 
+    private UserRoles role;
 
     @Column(nullable = true, length = 64, name = "verify_code")
     private String verifyCode;
@@ -52,6 +52,7 @@ public class User {
     public String getLastName() { return lastName; }
     public String getEmail() { return email; }
     public String getPassword() { return password; }
+    public UserRoles getRole() { return role; }
     public String getVerifyCode() { return verifyCode; }
     public String getVerifiedAt() { return verifiedAt; }
     public String getUpdatedAt() { return updatedAt; }
@@ -61,6 +62,7 @@ public class User {
     public void setLastName(String lastName) { this.lastName = lastName; }
     public void setEmail(String email) { this.email = email; }
     public void setPassword(String password) { this.password = password; }
+    public void setRole(UserRoles role) { this.role = role; }
     public void setVerifiedAt(String verifiedAt) { this.verifiedAt = verifiedAt; }
     
 }
