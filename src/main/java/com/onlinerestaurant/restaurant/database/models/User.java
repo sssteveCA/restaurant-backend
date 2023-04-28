@@ -1,7 +1,11 @@
 package com.onlinerestaurant.restaurant.database.models;
 
+import com.onlinerestaurant.restaurant.enums.UserRoles;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -26,6 +30,10 @@ public class User {
 
     @Column(nullable = false, length = 64)
     private String password;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role", nullable = false, columnDefinition = "ENUM('user','admin') DEFAULT 'user'") 
+    private UserRoles roles;
 
     @Column(nullable = true, length = 64, name = "verify_code")
     private String verifyCode;
