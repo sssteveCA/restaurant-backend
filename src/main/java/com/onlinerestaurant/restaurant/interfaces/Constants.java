@@ -10,6 +10,7 @@ public interface Constants {
     //Errors
     String ERR_DISH_TYPE_INVALID = "Il tipo di pasto che hai scelto non è valido";
     String ERR_EMAIL_EXISTS = "L'indirizzo email che hai inserito appartiene ad un account esistente";
+    String ERR_EMAIL_NOT_FOUND = "L'email specificata non è associata ad alcun utente registrato";
     String ERR_INVALID_DATA = "I dati inseriti non sono validi, riprova";
     String ERR_MENU = "Impossibile mostrare i menu del ristorante. "+ADMIN_CONTACT;
     String ERR_MISSING_DATA = "Inserisci i dati richiesti per continuare";
