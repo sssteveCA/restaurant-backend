@@ -16,6 +16,7 @@ public interface Constants {
     String ERR_MISSING_DATA = "Inserisci i dati richiesti per continuare";
     String ERR_PASSWORD_MISMATCH = "Le due password inserite non coincidono";
     String ERR_REQUEST = "Errore durante l'esecuzione della richiesta. "+ADMIN_CONTACT;
+    String ERR_WRONG_CREDENTIALS = "L'email e la password che hai inserito non sono corrette.";
 
     //Keys
     String KEY_DONE = "done";
