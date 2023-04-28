@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,6 +19,7 @@ import com.onlinerestaurant.restaurant.database.repositories.UserRepository;
 import com.onlinerestaurant.restaurant.exceptions.BadRequestException;
 import com.onlinerestaurant.restaurant.interfaces.Constants;
 import com.onlinerestaurant.restaurant.requests.Subscribe;
+import com.onlinerestaurant.restaurant.services.UserService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -27,29 +29,22 @@ public class SubscribeController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
     
     @PostMapping("/register")
     public String register(@RequestBody Subscribe subscribe, HttpServletRequest request, HttpServletResponse response) throws JsonProcessingException{
         ObjectMapper om = new ObjectMapper();
         ObjectNode on = om.createObjectNode();
         try{
-            boolean firstNameSet = (subscribe.firstName != null && !subscribe.firstName.equals(""));
-            boolean lastNameSet = (subscribe.lastName != null && !subscribe.lastName.equals(""));
-            boolean emailSet = (subscribe.email != null && !subscribe.email.equals(""));
-            boolean passwordSet = (subscribe.password != null && !subscribe.password.equals(""));
-            boolean confPasswordSet = (subscribe.confPassword != null && !subscribe.confPassword.equals(""));
-            if(firstNameSet && lastNameSet && emailSet && passwordSet && confPasswordSet){
+            boolean valid = this.validateRegistrationData(subscribe);
+            if(valid){
                 if(subscribe.password.equals(subscribe.confPassword)){
                     Optional<User> checkUser = this.userRepository.findByEmail(subscribe.email);
                     if(checkUser.isEmpty()){
-                        BCryptPasswordEncoder bpe = new BCryptPasswordEncoder();
-                        String passwordHash = bpe.encode(subscribe.password);
-                        User user = new User();
-                        user.setFirstName(subscribe.firstName);
-                        user.setLastName(subscribe.lastName);
-                        user.setEmail(subscribe.email);
-                        user.setPassword(passwordHash);
-                        userRepository.save(user);
+                        UserService userService = new UserService(this.userRepository, this.passwordEncoder);
+                        userService.save(subscribe.firstName, subscribe.lastName,subscribe.email,subscribe.password);
                         on.put(Constants.KEY_DONE, true);
                         on.put(Constants.KEY_MESSAGE, Constants.OK_REGISTRATION);
                         return om.writerWithDefaultPrettyPrinter().writeValueAsString(on);
@@ -70,5 +65,19 @@ public class SubscribeController {
             on.put(Constants.KEY_MESSAGE, e.getMessage());
             return om.writerWithDefaultPrettyPrinter().writeValueAsString(on);
         }
+    }
+
+    /**
+     * Check if registration values are valid
+     * @param subscribe
+     * @return
+     */
+    private boolean validateRegistrationData(Subscribe subscribe){
+        if(subscribe.firstName == null || subscribe.firstName.equals(""))return false;
+        if(subscribe.lastName == null || subscribe.lastName.equals(""))return false;
+        if(subscribe.email == null || subscribe.email.equals(""))return false;
+        if(subscribe.password == null || subscribe.password.equals(""))return false;
+        if(subscribe.confPassword == null || subscribe.confPassword.equals(""))return false;
+        return true;
     }
 }

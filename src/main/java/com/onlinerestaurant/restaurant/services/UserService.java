@@ -21,9 +21,21 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public User save(User newUser){
-        newUser.setPassword(this.passwordEncoder.encode(newUser.getPassword()));
-        return this.userRepository.save(newUser);
+    /**
+     * Save a new user in DB
+     * @param firstName
+     * @param lastName
+     * @param email
+     * @param password
+     * @return
+     */
+    public User save(String firstName, String lastName, String email, String password){
+        User user = new User();
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+        user.setEmail(email);
+        user.setPassword(this.passwordEncoder.encode(password));
+        return this.userRepository.save(user);
     }
     
 }
