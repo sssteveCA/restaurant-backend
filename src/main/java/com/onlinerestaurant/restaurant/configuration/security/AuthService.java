@@ -28,8 +28,7 @@ public class AuthService {
         MyUserPrincipal principal = (MyUserPrincipal)authentication.getPrincipal();
         User user = principal.getUser();
         UserDto userDto = this.userToUserDtoConverter.convert(user);
-        //String token = this.jwtProvider.createToken(authentication);
-        String token = "";
+        String token = this.jwtProvider.createToken(authentication);
         Map<String, Object> loginMap = new HashMap<>();
         loginMap.put("user",userDto);
         loginMap.put("token",token);
