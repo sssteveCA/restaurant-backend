@@ -38,9 +38,6 @@ public class SecurityConfiguration {
 
     private final RSAPublicKey publicKey;
     private final RSAPrivateKey privateKey;
-    
-    /* @Value("${api.endpoint.base-url}")
-    private String baseUrl; */
 
     public SecurityConfiguration() throws NoSuchAlgorithmException {
         KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
@@ -62,6 +59,8 @@ public class SecurityConfiguration {
             .requestMatchers(HttpMethod.GET,"/contacts/**").permitAll()
             .requestMatchers(HttpMethod.POST,"/login").permitAll()
             .requestMatchers(HttpMethod.POST, "/register").permitAll()
+            .requestMatchers(HttpMethod.GET, "/articles**").permitAll()
+            .requestMatchers(HttpMethod.GET,"/menu**").permitAll()
             .requestMatchers(HttpMethod.GET, "/profile**").hasAuthority("ROLE_user")
             .requestMatchers(AntPathRequestMatcher.antMatcher("/h2-console/**")).permitAll()
             .anyRequest().authenticated()

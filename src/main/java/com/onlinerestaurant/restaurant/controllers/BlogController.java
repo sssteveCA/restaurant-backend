@@ -10,10 +10,10 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.onlinerestaurant.restaurant.interfaces.Constants;
 
 @RestController
-@RequestMapping
+@RequestMapping("/articles")
 public class BlogController {
 
-    @GetMapping("/articles")
+    @GetMapping("")
     public String articles() throws JsonProcessingException{
         ObjectMapper om = new ObjectMapper();
         ObjectNode on = om.createObjectNode();
