@@ -1,6 +1,8 @@
 package com.onlinerestaurant.restaurant.configuration.security;
 
+
 import org.springframework.stereotype.Service;
+
 
 @Service
 public class AuthService {
@@ -10,5 +12,6 @@ public class AuthService {
     public AuthService(JwtProvider jwtProvider) {
         this.jwtProvider = jwtProvider;
     }
+
 
 }
