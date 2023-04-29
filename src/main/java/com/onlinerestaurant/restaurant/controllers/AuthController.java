@@ -1,5 +1,7 @@
 package com.onlinerestaurant.restaurant.controllers;
 
+import java.util.Map;
+
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,8 +27,11 @@ public class AuthController {
     public String getLoginInfo(Authentication authentication) throws JsonProcessingException{
         ObjectMapper om = new ObjectMapper();
         ObjectNode on = om.createObjectNode();
+        Map<String, Object> loginMap = this.authService.createLoginInfo(authentication);
+        String serializedMap = om.writerWithDefaultPrettyPrinter().writeValueAsString(loginMap);
         on.put(Constants.KEY_DONE, true);
         on.put(Constants.KEY_MESSAGE, "Loggato");
+        on.put("data",serializedMap);
         return om.writerWithDefaultPrettyPrinter().writeValueAsString(on);
     }
 
