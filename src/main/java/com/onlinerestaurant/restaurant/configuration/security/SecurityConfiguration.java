@@ -1,5 +1,11 @@
 package com.onlinerestaurant.restaurant.configuration.security;
 
+import java.security.KeyPair;
+import java.security.KeyPairGenerator;
+import java.security.NoSuchAlgorithmException;
+import java.security.interfaces.RSAPrivateKey;
+import java.security.interfaces.RSAPublicKey;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -15,9 +21,20 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 public class SecurityConfiguration {
+
+    private final RSAPublicKey publicKey;
+    private final RSAPrivateKey privateKey;
     
     /* @Value("${api.endpoint.base-url}")
     private String baseUrl; */
+
+    public SecurityConfiguration() throws NoSuchAlgorithmException {
+        KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
+        keyPairGenerator.initialize(2048);
+        KeyPair keyPair = keyPairGenerator.generateKeyPair();
+        this.publicKey = (RSAPublicKey) keyPair.getPublic();
+        this.privateKey = (RSAPrivateKey) keyPair.getPrivate();
+    }
 
     @Autowired
     @Qualifier("customAuthenticationEntryPoint")
