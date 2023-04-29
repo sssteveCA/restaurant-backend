@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
+import com.onlinerestaurant.dto.UserDto;
 import com.onlinerestaurant.restaurant.adapter.MyUserPrincipal;
 import com.onlinerestaurant.restaurant.database.models.User;
 

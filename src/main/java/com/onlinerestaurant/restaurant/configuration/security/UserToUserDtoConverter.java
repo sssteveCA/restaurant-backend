@@ -3,6 +3,7 @@ package com.onlinerestaurant.restaurant.configuration.security;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
+import com.onlinerestaurant.dto.UserDto;
 import com.onlinerestaurant.restaurant.database.models.User;
 
 @Component
