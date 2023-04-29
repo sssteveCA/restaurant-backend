@@ -5,7 +5,9 @@ public interface Constants {
     String ADMIN_CONTACT = "Se il problema persiste, contattare l'amministratore del sito";
 
     //Empty
+    String EMPTY_ARTICLES = "Nessun articolo da mostrare";
     String EMPTY_DISHES = "Nessun piatto da mostrare";
+    String EMPTY_MENU = "Nessun menu da mostrare";
 
     //Errors
     String ERR_DISH_TYPE_INVALID = "Il tipo di pasto che hai scelto non è valido";
