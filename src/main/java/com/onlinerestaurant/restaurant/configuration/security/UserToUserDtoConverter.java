@@ -17,7 +17,7 @@ public class UserToUserDtoConverter implements Converter<User, UserDto> {
         final UserDto userDto = new UserDto(user.getId(),
                                             user.getEmail(),
                                             user.getVerifiedAt(),
-                                            user.getRole().toString());
+                                            user.getRole());
         return userDto;
     }
 

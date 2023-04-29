@@ -41,7 +41,7 @@ public class UserService implements UserDetailsService {
         user.setLastName(lastName);
         user.setEmail(email);
         user.setPassword(this.passwordEncoder.encode(password));
-        user.setRole(UserRoles.USER);
+        user.setRole(UserRoles.USER.toString());
         return this.userRepository.save(user);
     }
 
